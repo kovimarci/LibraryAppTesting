@@ -70,7 +70,23 @@ namespace LibraryAppTests
             Assert.IsTrue(result);
             Assert.AreEqual(2, lib.GetAvailableCopies("Dune"));
         }
+
+        [TestMethod]
+        public void BorrowBook_CantFindBook()
+        {
+            var lib = CreateDefaultLibrary();
+            Assert.IsFalse(lib.BorrowBook("Metro"));
+        }
         // TODO: nem létező cím esetén false-t kell visszaadni és nem dob kivételt
+
+        [TestMethod]
+        public void BorrowBook_TakenAll()
+        {
+            var lib = new Library("City Library");
+            lib.AddBook("Metro", 1);
+            lib.BorrowBook("Metro");
+            Assert.IsFalse(lib.BorrowBook("Metro"));
+        }
         // TODO: az összes példány kikölcsönzése után újabb kölcsönzés false-t ad vissza
 
         // ---- ReturnBook ----
