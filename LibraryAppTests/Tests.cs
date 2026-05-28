@@ -174,7 +174,23 @@ namespace LibraryAppTests
             lib.BorrowBook("1984");
             Assert.AreEqual(2, lib.GetTotalBorrowed());
         }
+
+        [TestMethod]
+        public void GetTotalBorrowed_NoBorrows()
+        {
+            var lib = new Library("City Library");
+            Assert.AreEqual(0, lib.GetTotalBorrowed());
+        }
         // TODO: újonnan létrehozott, üres könyvtárban GetTotalBorrowed() nullát ad vissza
+
+        [TestMethod]
+        public void GetTotalBorrowed_ReturnsWok()
+        {
+            var lib = CreateDefaultLibrary();
+            lib.BorrowBook("Dune");
+            lib.ReturnBook("Dune");
+            Assert.AreEqual(0, lib.GetTotalBorrowed());
+        }
         // TODO: visszahozás után a kikölcsönzött darabszám helyesen csökken
 
         // ---- RemoveBook ----
