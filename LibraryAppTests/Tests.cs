@@ -21,6 +21,13 @@ namespace LibraryAppTests
             var lib = new Library("City Library");
             Assert.AreEqual("City Library", lib.GetName());
         }
+
+        [TestMethod]
+        public void Constructor_EmptyOrNullName()
+        {
+            Assert.ThrowsException<ArgumentException>(() => new Library(""));
+            Assert.ThrowsException<ArgumentException>(() => new Library(null));
+        }
         // TODO: null vagy üres névvel létrehozva ArgumentException-t kell dobni
 
         // ---- AddBook ----
@@ -31,6 +38,23 @@ namespace LibraryAppTests
             var lib = new Library("City Library");
             lib.AddBook("Dune", 2);
             Assert.AreEqual(1, lib.GetTotalTitles());
+        }
+
+        [TestMethod]
+        public void AddBook_SameTitle()
+        {
+            var lib = new Library("City Library");
+            lib.AddBook("Dune", 2);
+            lib.AddBook("Dune", 2);
+            Assert.AreEqual(1, lib.GetTotalTitles());
+            Assert.AreEqual(4, lib.GetAvailableCopies("Dune"));
+        }
+        
+        [TestMethod]
+        public void AddBook_ZeroOrNegativeCopies()
+        {
+            Assert.ThrowsException<ArgumentException>(() => new Library(""));
+            Assert.ThrowsException<ArgumentException>(() => new Library(null));
         }
         // TODO: ugyanazt a címet hozzáadva újabb bejegyzések kerülnek az _availableBooks listába, és GetTotalTitles nem változik
         // TODO: copies értéke 0 vagy negatív esetén ArgumentException-t kell dobni
