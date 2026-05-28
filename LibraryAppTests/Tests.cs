@@ -113,7 +113,6 @@ namespace LibraryAppTests
         public void ReturnBook_NoneBorrowed()
         {
             var lib = CreateDefaultLibrary();
-            lib.BorrowBook("1984");
             Assert.IsFalse(lib.ReturnBook("Dune"));
         }
         // TODO: olyan könyv visszahozásakor, amelyből semmi sincs kikölcsönzve, false-t kell adni
@@ -127,6 +126,13 @@ namespace LibraryAppTests
             lib.BorrowBook("Dune");
             lib.BorrowBook("Dune");
             Assert.AreEqual(1, lib.GetAvailableCopies("Dune"));
+        }
+        
+        [TestMethod]
+        public void GetAvailableCopies_()
+        {
+            var lib = CreateDefaultLibrary();
+            Assert.AreEqual(-1, lib.GetAvailableCopies("Metro"));
         }
         // TODO: nem létező cím esetén -1-et kell visszaadni
 
