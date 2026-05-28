@@ -144,7 +144,24 @@ namespace LibraryAppTests
             var lib = CreateDefaultLibrary();
             Assert.IsTrue(lib.IsAvailable("Dune"));
         }
+        
+        [TestMethod]
+        public void IsAvailable_AllBooksTaken()
+        {
+            var lib = CreateDefaultLibrary();
+            lib.BorrowBook("Dune");
+            lib.BorrowBook("Dune");
+            lib.BorrowBook("Dune");
+            Assert.IsFalse(lib.IsAvailable("Dune"));
+        }
         // TODO: teljesen kikölcsönzött könyv esetén false-t kell visszaadni
+
+        [TestMethod]
+        public void IsAvailable_CantFindName()
+        {
+            var lib = CreateDefaultLibrary();
+            Assert.IsFalse(lib.IsAvailable("Metro"));
+        }
         // TODO: nem létező cím esetén false-t kell visszaadni
 
         // ---- GetTotalBorrowed ----
