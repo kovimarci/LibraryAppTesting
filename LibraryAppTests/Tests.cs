@@ -203,7 +203,23 @@ namespace LibraryAppTests
             Assert.IsTrue(result);
             Assert.AreEqual(1, lib.GetTotalTitles());
         }
+
+        [TestMethod]
+        public void RemoveBook_CantFindName()
+        {
+            var lib = CreateDefaultLibrary(); // 2 cím
+            Assert.IsFalse(lib.RemoveBook("Metro"));
+        }
         // TODO: nem létező cím eltávolításakor false-t kell visszaadni
+
+        [TestMethod]
+        public void RemoveBook_NoCopiesLeft()
+        {
+            var lib = CreateDefaultLibrary(); // 2 cím
+            lib.RemoveBook("1984");
+            lib.RemoveBook("1984");
+            Assert.AreEqual(-1, lib.GetAvailableCopies("1984"));
+        }
         // TODO: eltávolítás után a cím már nem érhető el, GetAvailableCopies -1-et ad vissza
     }
 }
