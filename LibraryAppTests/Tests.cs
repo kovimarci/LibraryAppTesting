@@ -207,7 +207,7 @@ namespace LibraryAppTests
         [TestMethod]
         public void RemoveBook_CantFindName()
         {
-            var lib = CreateDefaultLibrary(); // 2 cím
+            var lib = CreateDefaultLibrary();
             Assert.IsFalse(lib.RemoveBook("Metro"));
         }
         // TODO: nem létező cím eltávolításakor false-t kell visszaadni
@@ -215,8 +215,7 @@ namespace LibraryAppTests
         [TestMethod]
         public void RemoveBook_NoCopiesLeft()
         {
-            var lib = CreateDefaultLibrary(); // 2 cím
-            lib.RemoveBook("1984");
+            var lib = CreateDefaultLibrary();
             lib.RemoveBook("1984");
             Assert.AreEqual(-1, lib.GetAvailableCopies("1984"));
         }
