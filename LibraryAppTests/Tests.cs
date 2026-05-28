@@ -100,7 +100,22 @@ namespace LibraryAppTests
             Assert.IsTrue(result);
             Assert.AreEqual(1, lib.GetAvailableCopies("1984"));
         }
+
+        [TestMethod]
+        public void ReturnBook_CantFindName()
+        {
+            var lib = CreateDefaultLibrary();
+            Assert.IsFalse(lib.ReturnBook("Metro"));
+        }
         // TODO: nem létező cím visszahozásakor false-t kell visszaadni
+
+        [TestMethod]
+        public void ReturnBook_NoneBorrowed()
+        {
+            var lib = CreateDefaultLibrary();
+            lib.BorrowBook("1984");
+            Assert.IsFalse(lib.ReturnBook("Dune"));
+        }
         // TODO: olyan könyv visszahozásakor, amelyből semmi sincs kikölcsönzve, false-t kell adni
 
         // ---- GetAvailableCopies ----
