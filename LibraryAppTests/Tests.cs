@@ -49,14 +49,15 @@ namespace LibraryAppTests
             Assert.AreEqual(1, lib.GetTotalTitles());
             Assert.AreEqual(4, lib.GetAvailableCopies("Dune"));
         }
-        
+        // TODO: ugyanazt a címet hozzáadva újabb bejegyzések kerülnek az _availableBooks listába, és GetTotalTitles nem változik
+
         [TestMethod]
         public void AddBook_ZeroOrNegativeCopies()
         {
-            Assert.ThrowsException<ArgumentException>(() => new Library(""));
-            Assert.ThrowsException<ArgumentException>(() => new Library(null));
+            var lib = new Library("City Library");
+            Assert.ThrowsException<ArgumentException>(() => lib.AddBook("Dune", 0));
+            Assert.ThrowsException<ArgumentException>(() => lib.AddBook("Dune", -5));
         }
-        // TODO: ugyanazt a címet hozzáadva újabb bejegyzések kerülnek az _availableBooks listába, és GetTotalTitles nem változik
         // TODO: copies értéke 0 vagy negatív esetén ArgumentException-t kell dobni
 
         // ---- BorrowBook ----
